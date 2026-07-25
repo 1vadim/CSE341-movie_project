@@ -26,16 +26,36 @@
     },
     "/movies/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Movies"
+        ],
+        "description": "Retrieve a list of all movies from the database.",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Movies"
+        ],
+        "description": "Create a new movie.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New movie raw payload data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Movie"
+            }
+          }
+        ],
         "responses": {
+          "201": {
+            "description": "Created"
+          },
           "422": {
             "description": "Unprocessable Entity"
           }
@@ -44,32 +64,55 @@
     },
     "/movies/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Movies"
+        ],
+        "description": "Get a single movie by its unique ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Unique MongoDB ObjectId of the movie"
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "400": {
             "description": "Bad Request"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Movies"
+        ],
+        "description": "Update an existing movie by its ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Unique MongoDB ObjectId of the movie to update."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated fields payload",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Movie"
+            }
           }
         ],
         "responses": {
+          "204": {
+            "description": "No Content"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -79,16 +122,23 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Movies"
+        ],
+        "description": "Delete a movie from the database by its ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID of the movie to delete."
           }
         ],
         "responses": {
+          "204": {
+            "description": "No Content"
+          },
           "400": {
             "description": "Bad Request"
           }
