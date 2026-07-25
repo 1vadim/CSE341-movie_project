@@ -3,7 +3,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
   info: {
     title: 'Movies & Actors API',
-    description: 'REST API для управления базой данных фильмов и актеров.',
+    description: 'REST API for managing a database of movies and actors.',
     version: '1.0.0'
   },
   host: 'localhost:3000',
