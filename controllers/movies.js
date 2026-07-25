@@ -53,15 +53,17 @@ const createSingle = async (req, res) => {
         schema: { $ref: '#/definitions/Movie' }
      } */
   /* #swagger.responses = { 
+        status: 201,
         description: 'Movie successfully created.',
         schema: { id: '60c72b2f9b1d8b2bad000001' }
      } */
   /* #swagger.responses = { 
+        status: 422,
         schema: { $ref: '#/definitions/ValidationError' },
         description: 'Validation failed for request body payload fields.' 
      } */
 
-   const movie = {
+  const movie = {
     title: req.body.title,
     director: req.body.director,
     year: req.body.year,
@@ -78,17 +80,32 @@ const createSingle = async (req, res) => {
 const updateSingle = async (req, res) => {
   // #swagger.tags = ['Movies']
   // #swagger.description = 'Update an existing movie by its ID.'
-  /* #swagger.parameters['id'] = { description: 'ID of the movie to update.' } */
+  /* #swagger.parameters['id'] = { 
+        in: 'path',
+        description: 'Unique MongoDB ObjectId of the movie to update.',
+        required: true,
+        type: 'string'
+     } */
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Updated fields payload',
         required: true,
         schema: { $ref: '#/definitions/Movie' }
      } */
-  /* #swagger.responses = { description: 'Movie successfully updated (No Content returned).' } */
-  /* #swagger.responses = { schema: { $ref: '#/definitions/ValidationError' } } */
-
-
+  /* #swagger.responses = { 
+        status: 204,
+        description: 'Movie successfully updated (No Content returned).' 
+     } */
+  /* #swagger.responses = { 
+        status: 422,
+        schema: { $ref: '#/definitions/ValidationError' },
+        description: 'Validation failed for request body payload fields.'
+     } */
+  /* #swagger.responses = { 
+        status: 400,
+        schema: { $ref: '#/definitions/GeneralError' },
+        description: 'The movie has not been updated (data identical or deleted).'
+     } */
 
   const userId = new ObjectId(req.params.id);
   const updatedMovie = {
