@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000
+
+### 
+GET {{baseUrl}}/movies
+
+###
+
+GET {{baseUrl}}/movies/6a57e32663045c825358e01a
+
+###
+
+POST {{baseUrl}}/movies/
+Content-Type: application/json
+
+{
+    "title": "Inception",
+    "director": "Christopher Nolan",
+    "year": 2010,
+    "duration": 148,
+    "rating": 8.8,
+    "language": "English",
+    "genre": "Science Fiction"
+}
+
+###
+
+POST {{baseUrl}}/movies/
+Content-Type: application/json
+
+{
+  "title": "Example Movie",
+  "director": "John Doe",
+  "year": 2020,
+  "duration": 120,
+  "rating": 8.5,
+  "language": "English",
+  "genre": "Action"
+}
+
+###
+
+PUT {{baseUrl}}/movies/6a651d2994e70cdba0b1e613
+Content-Type: application/json
+
+{
+  "title": "Updated Movie",
+  "director": "Jane Smith",
+  "year": 2021,
+  "duration": 130,
+  "rating": 9.0,
+  "language": "Spanish",
+  "genre": "Drama"
+}
+
+###
+
+DELETE {{baseUrl}}/movies/6a57e32663045c825358e01a

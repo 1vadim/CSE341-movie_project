@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My Project API",
-    "description": "Documentation for my CSE341 project2",
+    "title": "Movies & Actors API",
+    "description": "REST API for managing a database of movies and actors.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -34,7 +34,7 @@
         }
       }
     },
-    "/contacts/": {
+    "/movies/": {
       "get": {
         "description": "",
         "responses": {
@@ -52,7 +52,7 @@
         }
       }
     },
-    "/contacts/{id}": {
+    "/movies/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -104,31 +104,201 @@
           }
         }
       }
+    },
+    "/actors/": {
+      "get": {
+        "tags": [
+          "Actors"
+        ],
+        "description": "Retrieve a list of all actors from the database.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Actors"
+        ],
+        "description": "Create a new actor record.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New actor raw payload data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Actor"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/actors/{id}": {
+      "get": {
+        "tags": [
+          "Actors"
+        ],
+        "description": "Get a single actor by their unique ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Unique MongoDB ObjectId of the actor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Actors"
+        ],
+        "description": "Update an existing actor by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the actor to update."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated fields payload",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Actor"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Actors"
+        ],
+        "description": "Delete an actor from the database by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the actor to delete."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "Contact": {
+    "Movie": {
       "type": "object",
       "properties": {
-        "firstName": {
+        "title": {
           "type": "string",
-          "example": "John"
+          "example": "Inception"
         },
-        "lastName": {
+        "director": {
           "type": "string",
-          "example": "Doe"
+          "example": "Christopher Nolan"
         },
-        "email": {
-          "type": "string",
-          "example": "john.doe@example.com"
+        "year": {
+          "type": "number",
+          "example": 2010
         },
-        "favoriteColor": {
-          "type": "string",
-          "example": "Blue"
+        "duration": {
+          "type": "number",
+          "example": 148
         },
-        "birthday": {
+        "rating": {
+          "type": "number",
+          "example": 8.8
+        },
+        "language": {
           "type": "string",
-          "example": "1990-01-15"
+          "example": "English"
+        },
+        "genre": {
+          "type": "string",
+          "example": "Science Fiction"
+        }
+      }
+    },
+    "Actor": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Leonardo DiCaprio"
+        },
+        "birthdate": {
+          "type": "string",
+          "example": "1974-11-11"
+        },
+        "birthplace": {
+          "type": "string",
+          "example": "Los Angeles, California, USA"
+        },
+        "nationality": {
+          "type": "string",
+          "example": "American"
+        },
+        "awards": {
+          "type": "array",
+          "example": [
+            "Academy Award",
+            "Golden Globe"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "popularMovies": {
+          "type": "array",
+          "example": [
+            "Inception",
+            "Titanic"
+          ],
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -146,15 +316,15 @@
               },
               "value": {
                 "type": "string",
-                "example": "not-an-email"
+                "example": "invalid-data"
               },
               "msg": {
                 "type": "string",
-                "example": "Please provide a valid email address."
+                "example": "Error message text."
               },
               "path": {
                 "type": "string",
-                "example": "email"
+                "example": "fieldName"
               },
               "location": {
                 "type": "string",
@@ -168,17 +338,9 @@
     "GeneralError": {
       "type": "object",
       "properties": {
-        "status": {
-          "type": "string",
-          "example": "error"
-        },
-        "statusCode": {
-          "type": "number",
-          "example": 404
-        },
         "message": {
           "type": "string",
-          "example": "Contact with the specified ID was not found."
+          "example": "Error description message."
         }
       }
     }

@@ -1,39 +1,49 @@
-const swaggerAutogen = require("swagger-autogen")();
+const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'My Project API',
-    description: 'Documentation for my CSE341 project2'
+    title: 'Movies & Actors API',
+    description: 'REST API для управления базой данных фильмов и актеров.',
+    version: '1.0.0'
   },
   host: 'localhost:3000',
+  schemes: ['http'],
   definitions: {
-    Contact: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      favoriteColor: 'Blue',
-      birthday: '1990-01-15'
+    Movie: {
+      title: 'Inception',
+      director: 'Christopher Nolan',
+      year: 2010,
+      duration: 148,
+      rating: 8.8,
+      language: 'English',
+      genre: 'Science Fiction'
+    },
+    Actor: {
+      name: 'Leonardo DiCaprio',
+      birthdate: '1974-11-11',
+      birthplace: 'Los Angeles, California, USA',
+      nationality: 'American',
+      awards: ['Academy Award', 'Golden Globe'],
+      popularMovies: ['Inception', 'Titanic']
     },
     ValidationError: {
       errors: [
         {
           type: 'field',
-          value: 'not-an-email',
-          msg: 'Please provide a valid email address.',
-          path: 'email',
+          value: 'invalid-data',
+          msg: 'Error message text.',
+          path: 'fieldName',
           location: 'body'
         }
       ]
     },
     GeneralError: {
-      status: 'error',
-      statusCode: 404,
-      message: 'Contact with the specified ID was not found.'
+      message: 'Error description message.'
     }
   }
 };
 
-const outputFile = "./swagger-output.json";
-const routes = ["./routes/index.js"]; 
+const outputFile = './swagger-output.json';
+const routesEndpointsFiles = ['./routes/index.js'];
 
-swaggerAutogen(outputFile, routes, doc);
+swaggerAutogen(outputFile, routesEndpointsFiles, doc);

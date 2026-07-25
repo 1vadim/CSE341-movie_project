@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}/actors
+
+###
+
+POST {{baseUrl}}/actors
+Content-Type: application/json
+
+{
+  "name": "Leonardo DiCaprio1",
+  "birthdate": "1974-11-11",
+  "birthplace": "Los Angeles, California, USA",
+  "nationality": "American",
+  "awards": ["Academy Award", "Golden Globe", "BAFTA"],
+  "popularMovies": ["Inception", "Titanic", "The Wolf of Wall Street", "The Revenant"]
+}
+
+###
+
+POST {{baseUrl}}/actors
+Content-Type: application/json
+
+{
+  "name": "Wrong Actor Data",
+  "birthdate": "11-11-1974",
+  "birthplace": "London",
+  "nationality": "British",
+  "awards": [],
+  "popularMovies": []
+}
+
+###
+
+GET {{baseUrl}}/actors/65c3a4f8e4b0a123456789ab
+
+###
+
+GET {{baseUrl}}/actors/invalid-id-123
+
+###
+
+PUT {{baseUrl}}/actors/65c3a4f8e4b0a123456789ab
+Content-Type: application/json
+
+{
+  "name": "Leonardo DiCaprio",
+  "birthdate": "1974-11-11",
+  "birthplace": "Los Angeles, California, USA",
+  "nationality": "American",
+  "awards": ["Academy Award", "Golden Globe", "BAFTA", "Screen Actors Guild Award"],
+  "popularMovies": ["Inception", "Titanic", "The Wolf of Wall Street", "The Revenant", "Killers of the Flower Moon"]
+}
+
+###
+
+DELETE {{baseUrl}}/actors/65c3a4f8e4b0a123456789ab
