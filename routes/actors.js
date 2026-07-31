@@ -2,15 +2,23 @@ const express = require('express');
 const router = express.Router();
 const actorsController = require('../controllers/actors');
 const { validateId, actorValidationRules } = require('../middleware/validateActors');
+const { isAuthenticated } = require('../middleware/authenticate');
+
 
 router.get('/', actorsController.getAll);
 
 router.get('/:id', validateId, actorsController.getSingle);
 
-router.post('/', actorValidationRules, actorsController.createSingle);
+router.post('/', isAuthenticated, actorValidationRules, actorsController.createSingle);
 
-router.put('/:id', validateId, actorValidationRules, actorsController.updateSingle);
+router.put(
+  '/:id',
+  isAuthenticated,
+  validateId,
+  actorValidationRules,
+  actorsController.updateSingle
+);
 
-router.delete('/:id', validateId, actorsController.deleteSingle);
+router.delete('/:id', isAuthenticated, validateId, actorsController.deleteSingle);
 
 module.exports = router;

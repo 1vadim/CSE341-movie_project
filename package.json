@@ -1,14 +1,14 @@
 {
-  "name": "cse341-project1",
+  "name": "cse341-movie_project",
   "version": "1.0.0",
   "description": "My first CSE341 project",
-  "homepage": "https://github.com/1vadim/CSE341-project1#readme",
+  "homepage": "https://github.com/1vadim/CSE341-movie_project#readme",
   "bugs": {
-    "url": "https://github.com/1vadim/CSE341-project1/issues"
+    "url": "https://github.com/1vadim/CSE341-movie_project/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1vadim/CSE341-project1.git"
+    "url": "git+https://github.com/1vadim/CSE341-movie_project.git"
   },
   "license": "ISC",
   "author": "Vadym Chemariev",
@@ -16,7 +16,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node ./swagger.js && nodemon server.js",
     "swagger": "node ./swagger.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
@@ -24,10 +24,14 @@
   },
   "dependencies": {
     "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "express-validator": "^7.3.2",
     "mongodb": "^7.4.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
@@ -36,5 +40,14 @@
     "globals": "^17.7.0",
     "nodemon": "^3.1.14",
     "swagger-autogen": "^2.23.7"
+  },
+  "overrides": {
+    "brace-expansion": "^5.0.8"
+  },
+  "scarfSettings": {
+    "enabled": false
+  },
+  "allowScripts": {
+    "@scarf/scarf@1.4.0": true
   }
 }
