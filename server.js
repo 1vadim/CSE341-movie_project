@@ -52,7 +52,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.CALLBACK_URL || 'http://localhost:8080/github/callback'
+      callbackURL: process.env.CALLBACK_URL || 'https://cse341-movie-project.onrender.com/auth/github/callback'
     },
     function (accessToken, refreshToken, profile, done) {
       return done(null, profile);

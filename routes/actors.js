@@ -3,22 +3,23 @@ const router = express.Router();
 const actorsController = require('../controllers/actors');
 const { validateId, actorValidationRules } = require('../middleware/validateActors');
 const { isAuthenticated } = require('../middleware/authenticate');
+const { handleAsync } = require('../middleware/errorHandler');
 
 
-router.get('/', actorsController.getAll);
+router.get('/', handleAsync(actorsController.getAll));
 
-router.get('/:id', validateId, actorsController.getSingle);
+router.get('/:id', validateId, handleAsync(actorsController.getSingle));
 
-router.post('/', isAuthenticated, actorValidationRules, actorsController.createSingle);
+router.post('/', isAuthenticated, actorValidationRules, handleAsync(actorsController.createSingle));
 
 router.put(
   '/:id',
   isAuthenticated,
   validateId,
   actorValidationRules,
-  actorsController.updateSingle
+  handleAsync(actorsController.updateSingle)
 );
 
-router.delete('/:id', isAuthenticated, validateId, actorsController.deleteSingle);
+router.delete('/:id', isAuthenticated, validateId, handleAsync(actorsController.deleteSingle));
 
 module.exports = router;
